@@ -1,16 +1,17 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response } from "express";
 import authRoutes from "./routes/auth";
 import resourcenotfoundhandler from "./middleware/resourcenotfoundhandler";
 import errorHandler from "./middleware/errorHandler";
-import "dotenv/config";
 import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json()); // global middleware
 app.use("/api/auth", authRoutes);
 
-app.get("/", (req: Request, res: Response, next: NextFunction) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("Hello, World!");
 });
 

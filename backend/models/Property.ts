@@ -29,4 +29,4 @@ const Property = sequelize.define(
   },
 );
 
-module.exports = Property;
+export default Property;

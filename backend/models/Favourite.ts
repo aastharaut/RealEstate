@@ -5,12 +5,12 @@ const Favourite = sequelize.define(
   "Favourite",
   {
     user_id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: { model: "users", key: "id" },
     },
     property_id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: { model: "properties", key: "id" },
     },
