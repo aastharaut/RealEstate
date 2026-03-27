@@ -28,4 +28,4 @@ const Favourite = sequelize.define(
   },
 );
 
-module.exports = Favourite;
+export default Favourite;
