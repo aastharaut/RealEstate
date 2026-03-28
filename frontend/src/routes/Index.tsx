@@ -1,17 +1,31 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import RootLayout from "../components/layout/RootLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import BuyerDashboard from "../pages/BuyerDashboard";
+import Property from "../pages/Property";
+import ProtectedRoute from "../components/ui/ProtectedRoute";
 
 const router = createBrowserRouter([
-  { path: "/", Component: Home },
-  { path: "/login", Component: Login },
-  { path: "/signup", Component: Signup },
-  { path: "/dashboard", Component: BuyerDashboard },
+  {
+    path: "/",
+    element: <RootLayout />, // header + main layout
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/login", element: <Login /> },
+      { path: "/signup", element: <Signup /> },
+      { path: "/property", element: <Property /> },
+
+      // Protected routes
+      {
+        element: <ProtectedRoute />, // checks if user logged in
+        children: [{ path: "/dashboard", element: <BuyerDashboard /> }],
+      },
+    ],
+  },
 ]);
-function Index() {
+
+export default function Router() {
   return <RouterProvider router={router} />;
 }
-
-export default Index;
