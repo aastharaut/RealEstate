@@ -1,5 +1,10 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Heart } from "lucide-react";
+import type { AppDispatch, RootState } from "../../redux/store";
+import {
+  addFavourite,
+  removeFavourite,
+} from "../../redux/slice/favouriteSlice";
 
 interface PropertyCardProps {
   id: number;
@@ -16,18 +21,33 @@ const PropertyCard = ({
   location,
   image_url,
 }: PropertyCardProps) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.user.value.data);
 
-  const handleFavorite = () => {
-    setIsFavorite(!isFavorite);
+  const isFavourite = useSelector((state: RootState) =>
+    state.favourites.items.some((p) => p.id === id),
+  );
 
-    // 👉 Later connect this to backend / redux
-    console.log(`Property ${id} favorite:`, !isFavorite);
+  const handleFavourite = () => {
+    if (!user || user.role !== "BUYER") return;
+
+    if (isFavourite) {
+      dispatch(removeFavourite(id));
+    } else {
+      dispatch(
+        addFavourite({
+          id,
+          title,
+          price,
+          address: location,
+          image_url: image_url || "",
+        }),
+      );
+    }
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-      {/* Image Section */}
       <div className="relative h-48 bg-gray-200">
         {image_url ? (
           <img
@@ -45,25 +65,25 @@ const PropertyCard = ({
           </div>
         )}
 
-        {/* Favorite Button */}
-        <button
-          onClick={handleFavorite}
-          className="absolute top-3 right-3 bg-white p-2 rounded-full shadow-md hover:scale-110 transition"
-        >
-          <Heart
-            size={18}
-            className={`${
-              isFavorite ? "fill-red-500 text-red-500" : "text-gray-600"
-            }`}
-          />
-        </button>
+        {user?.role === "BUYER" && (
+          <button
+            onClick={handleFavourite}
+            className="absolute top-3 right-3 bg-white p-2 rounded-full shadow-md hover:scale-110 transition"
+          >
+            <Heart
+              size={18}
+              className={
+                isFavourite ? "fill-rose-300 text-rose-400" : "text-gray-600"
+              }
+            />
+          </button>
+        )}
       </div>
 
-      {/* Content */}
       <div className="p-4">
         <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
         <p className="text-gray-600 text-sm mt-1">{location}</p>
-        <p className="text-2xl font-bold text-purple-600 mt-2">
+        <p className="text-2xl font-bold text-mauve-600 mt-2">
           ${price.toLocaleString()}
         </p>
       </div>

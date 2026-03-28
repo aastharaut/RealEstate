@@ -40,10 +40,8 @@ const AdminDashboard = () => {
         ...formData,
         price: parseFloat(formData.price),
       });
-
       alert("Property added successfully!");
 
-      // Reset form
       setFormData({
         title: "",
         description: "",
@@ -83,7 +81,7 @@ const AdminDashboard = () => {
               type="text"
               name="title"
               required
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-mauve-500"
               value={formData.title}
               onChange={handleChange}
               placeholder="Beautiful Beach House"
@@ -97,7 +95,7 @@ const AdminDashboard = () => {
             <textarea
               name="description"
               rows={3}
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-mauve-500"
               value={formData.description}
               onChange={handleChange}
               placeholder="Describe the property..."
@@ -113,7 +111,7 @@ const AdminDashboard = () => {
                 type="number"
                 name="price"
                 required
-                className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-mauve-500"
                 value={formData.price}
                 onChange={handleChange}
                 placeholder="250000"
@@ -127,7 +125,7 @@ const AdminDashboard = () => {
               type="text"
               name="address"
               required
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-mauve-500"
               value={formData.address}
               onChange={handleChange}
               placeholder="Chandol, Kathmandu"
@@ -137,8 +135,8 @@ const AdminDashboard = () => {
             <label className="block text-sm font-medium mb-1">Image URL</label>
             <input
               type="url"
-              name="imageUrl"
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              name="image_url"
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-mauve-500"
               value={formData.image_url}
               onChange={handleChange}
               placeholder="https://example.com/house.jpg"
@@ -161,7 +159,7 @@ const AdminDashboard = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 disabled:bg-gray-400 transition"
+            className="w-full bg-mauve-600 text-white px-6 py-2 rounded-lg hover:bg-mauve-700 disabled:bg-gray-400 transition"
           >
             {loading ? "Adding Property..." : "Add Property"}
           </button>
