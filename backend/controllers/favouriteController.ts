@@ -1,4 +1,4 @@
-import { Request, Response } from "express"; // ← add Request
+import { Request, Response } from "express";
 import Favourite from "../models/Favourite";
 import Property from "../models/Property";
 import { AddFavouriteData } from "../validations/favouriteValidation";
@@ -12,7 +12,7 @@ interface FavouriteInstance {
   user_id: number;
   property_id: number;
   createdAt: Date;
-  property?: any; // ← lowercase
+  property?: any;
 }
 const favouritesController = {
   // GET /api/favourites
@@ -30,7 +30,7 @@ const favouritesController = {
         favourites: (favourites as unknown as FavouriteInstance[]).map(
           (fav) => ({
             id: fav.id,
-            property: fav.property, // ← lowercase
+            property: fav.property,
             createdAt: fav.createdAt,
           }),
         ),
@@ -66,7 +66,7 @@ const favouritesController = {
     }
   },
 
-  // DELETE /api/favourites/:propertyId
+  // DELETE
   removeFavourite: async (req: AuthRequest, res: Response) => {
     try {
       const userId = req.user!.id;

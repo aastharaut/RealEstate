@@ -7,7 +7,7 @@ const router = Router();
 
 // Mount route files
 router.use("/auth", authRoutes);
-router.use("/favourites", favouriteRoutes); // plural is common
+router.use("/favourites", favouriteRoutes);
 router.use("/properties", propertyRoutes);
 
 export default router;

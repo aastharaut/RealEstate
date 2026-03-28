@@ -1,8 +1,10 @@
 import { Sequelize } from "sequelize";
+import pg from "pg";
 const sequelize = new Sequelize(
   "postgres://postgres:1907@localhost:5432/realestate",
   {
     logging: false, //reducing console logs, set to true for debugging
+    dialectModule: pg,
   },
 );
 
