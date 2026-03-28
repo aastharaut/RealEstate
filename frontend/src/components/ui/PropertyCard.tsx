@@ -5,6 +5,7 @@ import {
   addFavourite,
   removeFavourite,
 } from "../../redux/slice/favouriteSlice";
+import { toast } from "react-toastify";
 
 interface PropertyCardProps {
   id: number;
@@ -28,21 +29,27 @@ const PropertyCard = ({
     state.favourites.items.some((p) => p.id === id),
   );
 
-  const handleFavourite = () => {
+  const handleFavourite = async () => {
     if (!user || user.role !== "BUYER") return;
 
-    if (isFavourite) {
-      dispatch(removeFavourite(id));
-    } else {
-      dispatch(
-        addFavourite({
-          id,
-          title,
-          price,
-          address: location,
-          image_url: image_url || "",
-        }),
-      );
+    try {
+      if (isFavourite) {
+        await dispatch(removeFavourite(id)).unwrap();
+        toast.success("Removed from favourites");
+      } else {
+        await dispatch(
+          addFavourite({
+            id,
+            title,
+            price,
+            address: location,
+            image_url: image_url || "",
+          }),
+        ).unwrap();
+        toast.success("Added to favourites!");
+      }
+    } catch (error: any) {
+      toast.error(error || "Something went wrong");
     }
   };
 
@@ -84,7 +91,7 @@ const PropertyCard = ({
         <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
         <p className="text-gray-600 text-sm mt-1">{location}</p>
         <p className="text-2xl font-bold text-mauve-600 mt-2">
-          ${price.toLocaleString()}
+          Rs.{price.toLocaleString()}
         </p>
       </div>
     </div>

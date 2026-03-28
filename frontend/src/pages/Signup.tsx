@@ -3,13 +3,14 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import { login } from "../redux/slice/UserSlice";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
-    role: "BUYER",
+    role: "BUYER", //default
   });
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -24,15 +25,15 @@ const Signup = () => {
         localStorage.setItem("accessToken", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.user));
         dispatch(login(res.data.user));
-        alert("Account created successfully! You are now logged in.");
+        toast.success("Account created successfully! You are now logged in.");
         navigate("/dashboard");
       } else {
-        alert("Account created successfully! Please login.");
+        toast.success("Account created successfully! Please login.");
         navigate("/login");
       }
     } catch (err) {
       console.error(err);
-      alert("Signup failed. Please try again.");
+      toast.error("Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "./redux/slice/UserSlice";
 import Router from "./routes/Index";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -10,7 +12,6 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     const savedUser = localStorage.getItem("user");
-
     if (token && savedUser) {
       try {
         const userData = JSON.parse(savedUser);
@@ -19,7 +20,6 @@ function App() {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("user");
       }
-    } else {
     }
     setIsRestored(true);
   }, [dispatch]);
@@ -31,7 +31,19 @@ function App() {
       </div>
     );
   }
-  return <Router />;
+
+  return (
+    <>
+      <Router />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+      />
+    </>
+  );
 }
 
 export default App;

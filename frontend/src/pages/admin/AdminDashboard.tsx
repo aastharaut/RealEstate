@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import type { RootState } from "../../redux/store";
 import api from "../../api/api";
+import { toast } from "react-toastify";
 
 const AdminDashboard = () => {
   const user = useSelector((state: RootState) => state.user.value.data);
@@ -38,9 +39,9 @@ const AdminDashboard = () => {
     try {
       await api.post("/properties", {
         ...formData,
-        price: parseFloat(formData.price),
+        price: parseFloat(formData.price.replace(/,/g, "")),
       });
-      alert("Property added successfully!");
+      toast.success("Property added successfully!");
 
       setFormData({
         title: "",
@@ -50,8 +51,7 @@ const AdminDashboard = () => {
         image_url: "",
       });
     } catch (error) {
-      console.error("Error adding property:", error);
-      alert("Failed to add property. Please try again.");
+      toast.error("Failed to add property. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -61,7 +61,6 @@ const AdminDashboard = () => {
     <div className="p-8 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
 
-      {/* User Info Card */}
       <div className="bg-purple-50 rounded-lg p-6 mb-8">
         <p className="text-lg">
           Welcome, <span className="font-semibold">{user.name}</span>!
@@ -70,7 +69,6 @@ const AdminDashboard = () => {
         <p className="text-gray-600">Role: {user.role}</p>
       </div>
 
-      {/* Add Property Form */}
       <div className="bg-white rounded-lg shadow-md p-6">
         <h2 className="text-2xl font-bold mb-4">Add New Property</h2>
 
@@ -105,7 +103,7 @@ const AdminDashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-1">
-                Price ($) *
+                Price (Rs.) *
               </label>
               <input
                 type="number"

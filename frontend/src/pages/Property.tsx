@@ -4,6 +4,7 @@ import type { RootState } from "../redux/store";
 import PropertyCard from "../components/ui/PropertyCard";
 import api from "../api/api";
 import { Pencil, Trash2 } from "lucide-react";
+import { toast } from "react-toastify";
 
 interface Property {
   id: number;
@@ -51,10 +52,10 @@ const Property = () => {
     try {
       await api.delete(`/properties/${id}`);
       setProperties(properties.filter((p) => p.id !== id));
-      alert("Property deleted successfully!");
+      toast.success("Property deleted successfully!");
     } catch (error) {
       console.error("Error deleting property:", error);
-      alert("Failed to delete property");
+      toast.error("Failed to delete property.");
     }
   };
 
@@ -63,7 +64,7 @@ const Property = () => {
     setEditFormData({
       title: property.title,
       description: property.description || "",
-      price: property.price.toString(),
+      price: property.price.toLocaleString(),
       address: property.address,
       image_url: property.image_url || "",
     });
@@ -87,7 +88,7 @@ const Property = () => {
         ...editingProperty,
         title: editFormData.title,
         description: editFormData.description,
-        price: parseFloat(editFormData.price),
+        price: parseFloat(editFormData.price.replace(/,/g, "")),
         address: editFormData.address,
         image_url: editFormData.image_url,
       };
@@ -101,11 +102,10 @@ const Property = () => {
         ),
       );
 
-      alert("Property updated successfully!");
+      toast.success("Property updated successfully!");
       setEditingProperty(null);
     } catch (error) {
-      console.error("Error updating property:", error);
-      alert("Failed to update property");
+      toast.error("Failed to update property");
     }
   };
 
