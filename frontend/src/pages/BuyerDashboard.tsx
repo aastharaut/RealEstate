@@ -51,7 +51,7 @@ const BuyerDashboard = () => {
         <div className="text-center py-12 text-gray-500">
           <p className="text-lg">No favourite properties yet.</p>
           <p className="text-sm mt-1">
-            Browse properties and click the ❤️ to save them here.
+            Browse properties and click the heart to save them here.
           </p>
         </div>
       )}
