@@ -1,19 +1,27 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import api from "../api/api";
+import { login } from "../redux/slice/UserSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const res = await api.post("/auth/login", {
-        email,
-        password,
-      });
-
+      const res = await api.post("/auth/login", { email, password });
       localStorage.setItem("accessToken", res.data.token);
-      alert("Login successful");
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      dispatch(login(res.data.user));
+      if (res.data.user.role === "ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       console.error(err);
     }
@@ -25,19 +33,26 @@ const Login = () => {
 
       <input
         placeholder="Email"
-        className="border p-2"
+        type="email"
+        className="border p-2 w-64"
+        value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
 
       <input
         placeholder="Password"
         type="password"
-        className="border p-2"
+        className="border p-2 w-64"
+        value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button onClick={handleLogin} className="bg-black text-white px-4 py-2">
-        Login
+      <button
+        onClick={handleLogin}
+        disabled={loading}
+        className="bg-black text-white px-4 py-2 w-64 disabled:bg-gray-500"
+      >
+        {loading ? "Logging in..." : "Login"}
       </button>
     </div>
   );

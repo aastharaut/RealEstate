@@ -28,7 +28,7 @@ const Home: React.FC = () => {
 
       {/* Welcome Section */}
       <section className="py-16 px-4 md:px-8 bg-white text-center">
-        <h2 className="text-2xl md:text-3xl font-bold text-purple-900 font-syne mb-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-mauve-600 font-syne mb-6">
           Welcome
         </h2>
 
