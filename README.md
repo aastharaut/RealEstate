@@ -20,9 +20,10 @@ Axios for API calls
 - npm
 - PostgreSQL running locally (or your DB of choice)
 
-# 1. Clone the repository
+## 1. Clone the repository
 
 git clone https://github.com/aastharaut/RealEstate.git
+
 cd RealEstate
 
 ## 2. Set up the Backend
@@ -41,19 +42,19 @@ cp .env.example .env
 
 # Edit .env with your database credentials
 
-# PORT=5000
+PORT=5000
 
-# DB_HOST=localhost
+DB_HOST=localhost
 
-# DB_USER=postgres
+DB_USER=postgres
 
-# DB_PASSWORD=yourpassword
+DB_PASSWORD=yourpassword
 
-# DB_NAME=realestate
+DB_NAME=realestate
 
-# JWT_SECRET=yourkey
+JWT_SECRET=yourkey
 
-## Run database migrations:
+# Run database migrations:
 
 npx sequelize-cli db:migrate
 
@@ -63,7 +64,7 @@ npm run dev
 
 Backend runs on `http://localhost:5000`
 
-### 3. Set up the Frontend
+## 3. Set up the Frontend
 
 # Navigate to frontend directory (open new terminal)
 
@@ -79,7 +80,7 @@ cp .env.example .env
 
 # Update .env with backend URL
 
-# VITE_SERVER_URL=http://localhost:5000/api
+VITE_SERVER_URL=http://localhost:5000/api
 
 # Start frontend development server
 
