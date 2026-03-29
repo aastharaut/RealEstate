@@ -43,10 +43,15 @@ cp .env.example .env
 # Edit .env with your database credentials
 
 PORT=5000
+
 DB_HOST=localhost
+
 DB_USER=postgres
+
 DB_PASSWORD=yourpassword
+
 DB_NAME=realestate
+
 JWT_SECRET=yourkey
 
 # Run database migrations:
