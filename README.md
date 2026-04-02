@@ -86,7 +86,7 @@ VITE_SERVER_URL=http://localhost:5000/api
 
 npm run dev
 
-> Frontend runs on `http://localhost:5173`
+Frontend runs on `http://localhost:5173`
 
 ---
 
